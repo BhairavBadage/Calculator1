@@ -2,57 +2,98 @@
 #include <cmath>
 using namespace std;
 
-class simplecalc{
-    int a, b;
+class Results {
     public:
-        void getDatasimple()
-        {
-            cout<<"a :"<<endl;
-            cin>>a;
-            cout<<"b :"<<endl;
-            cin>>b;
-        }
+    float result;
+};
+
+class simplecalc{
+    protected:
+    float a, b, result;
+    public:
+       simplecalc(){};
+    
+       simplecalc(float a, float b):a(a),b(b){};
 
         void simple_calculations(){
-            cout<<"The value of a + b is: "<<a + b<<endl;
-            cout<<"The value of a - b is: "<<a - b<<endl;
-            cout<<"The value of a * b is: "<<a * b<<endl;
-            cout<<"The value of a / b is: "<<a / b<<endl;
-        }
+            char c;
+            cout<<"Enter the operand :"<<endl;
+            cin>>c;
+            switch (c){
+                case '+':
+                    result = a + b;
+                    break;
+                case '-':
+                    result = a - b;
+                    break;
+                case '/':
+                    result = a / b;
+                    break;
+                case '*':
+                    result = a * b;
+                    break;
+                case '%':
+                    result = a % b;
+                    break;
+            }
+       
+       cout<<result<<endl;
+       }
 };
 
 class scientificcalc{
-    int a, b;
+    protected:
+    float a, result;
 
     public:
-        void getDatascientific()
-        {
-            cout << "a :"<<endl;
-            cin >> a;
-            cout << "b :"<< endl;
-            cin >> b;
-        }
+        scientificcalc(){};
+        
+        scientificcalc(float a):a(a){};
 
-        void scientific_calculations()
-        { 
-            cout << "The value of cos(a) is: " << cos(a) << endl;
-            cout << "The value of sin(a) is: " << sin(a) << endl;
-            cout << "The value of exp(a) is: " << exp(a) << endl;
-            cout << "The value of tan(a) is: " << tan(a) << endl;
-        }
+        void scientific_calculations(){ 
+            cout<<"1. sin"<<endl
+                <<"2. cos"<<endl
+                <<"3. tan"<<endl 
+                <<"4. log"<<endl;
+            int n;
+            cin>>n;
+            switch (n){
+                case 1:
+                    result = sin(a);
+                    break;
+                case 2:
+                    result = cos(a);
+                    break;
+                case 3:
+                    result = tan(a);
+                    break;
+                case 4:
+                    result = log(a);
+                    break;
+            }
+       cout<<result<<endl;
+       }
 };
 
 class hybridcalc : public simplecalc, public scientificcalc{
+    public:
+    hybridcalc(){};
     
+    hybridcalc(float a, float b): simplecalc (a, b){};
+    
+    hybridcalc(float a): scientificcalc (a){};
 };
 int main()
 {
+    float a, b;
+    cin>>a>>b;
+    
+    hybridcalc x(a, b);
+    hybridcalc y(a);
+    
+    x.simple_calculations();
 
-    hybridcalc calc;
-    calc.getDatasimple();
-    calc.simple_calculations();
-    calc.getDatascientific();
-    calc.scientific_calculations();
+    y.scientific_calculations();
     
     return 0;
 }
